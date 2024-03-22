@@ -8,4 +8,8 @@ Anotações
 
 - Criar pasta npx create-expo-app NOME DA PASTA
 
-npx expo install expo-image-picker
+## Instalações necessarias:
+
+- `npx expo install expo-image-picker` (pegamos desse site: https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+
+- `npx expo install expo-media-library `(pegamos desse site: https://docs.expo.dev/versions/latest/sdk/media-library/)
