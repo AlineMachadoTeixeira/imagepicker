@@ -1,0 +1,1 @@
+- Criar pasta npx create-expo-app NOME DA PASTA
