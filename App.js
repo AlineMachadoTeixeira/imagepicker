@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 /* Importando os recursos da API nativa/móvel */
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
+import * as Sharing from "expo-sharing";
 
 export default function App() {
   /* State tradicional para armazenar a referência da foto (quando existir) */
@@ -68,18 +69,34 @@ export default function App() {
     }
   };
 
+  // Função para compartilhar a foto selecionada
+  const compartilharFoto = async () => {
+    // Verifica se há uma foto selecionada (se a variável 'foto' não é nula)
+    if (foto) {
+      try {
+        // Tenta compartilhar a foto usando a função shareAsync() da biblioteca expo-sharing
+        await Sharing.shareAsync(foto);
+      } catch (error) {
+        // Se houver algum erro ao compartilhar a foto, o erro é capturado aqui
+        console.log("Erro ao compartilhar a foto:", error.message);
+      }
+    }
+  };
+
   console.log(foto);
   return (
     <>
       <StatusBar />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Button onPress={escolherFoto} title="Escolher foto" />
-        <Button onPress={acessarCamera} title="tirar uma nova foto" />
+        <Button onPress={acessarCamera} title="Tirar uma nova foto" />
+
         {foto ? (
           <Image source={{ uri: foto }} style={{ width: 300, height: 300 }} />
         ) : (
-          <Text>Você ainda não escolheu uma foto </Text>
+          <Text>Você ainda não escolheu uma foto</Text>
         )}
+        <Button onPress={compartilharFoto} title="Compartilhar foto" />
       </View>
     </>
   );
