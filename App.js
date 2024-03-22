@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, Image, View } from "react-native";
+import { Button, Image, Text, View } from "react-native";
 
 import { useState, useEffect } from "react";
 
@@ -49,12 +49,27 @@ export default function App() {
     }
   };
 
+  const acessarCamera = async () => {
+    const imagem = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+      aspect: [16, 9],
+      quality: 0.5 /* Qualidade pela metade */,
+    });
+
+    //console.log(imagem);
+
+    if (!imagem.canceled) {
+      setFoto(imagem.assets[0].uri);
+    }
+  };
+
   console.log(foto);
   return (
     <>
       <StatusBar />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Button onPress={escolherFoto} title="Escolher foto" />
+        <Button onPress={acessarCamera} title="tirar uma nova foto" />
         {foto ? (
           <Image source={{ uri: foto }} style={{ width: 300, height: 300 }} />
         ) : (
